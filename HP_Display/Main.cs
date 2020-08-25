@@ -126,10 +126,10 @@ namespace HP_Display
                     Console.WriteLine("AA:" + ee.Message);
                 }
             }
-
-
             // Read config file
             Config_Load();
+
+
         }
         private void btn_load_Click(object sender, EventArgs e)
         {
@@ -187,6 +187,7 @@ namespace HP_Display
                 rowHeadtext.CreateCell(2).SetCellValue(Parameters.Behavior);
                 rowHeadtext.CreateCell(3).SetCellValue(Parameters.Status);
                 rowHeadtext.CreateCell(4).SetCellValue(Parameters.Remark);
+                rowHeadtext.CreateCell(5).SetCellValue(Parameters.Time);
                 #endregion
 
                 Task.Factory.StartNew(() =>
@@ -416,6 +417,10 @@ namespace HP_Display
                                         {
                                             ClientBehavior.Movie_Play_Check(ref SendMessage, ref MainResultArray, ref SendString, Group.Text, ref ExcelStepCounter, ref TotalStepCount, ref sheet, ref SocketDataCheck, ref halfSocketRemark, ref AnswerDic);
                                         }
+                                        else if (Step.Tag.ToString() == Behavior.Opening_Check)
+                                        {
+                                            ClientBehavior.Opening_Check(ref SendMessage,ref MainResultArray,ref SendString, Group.Text, ref ExcelStepCounter, ref TotalStepCount, ref sheet, ref SocketDataCheck, ref halfSocketRemark);
+                                        }
                                         else
                                         {
                                             // Trans send data from dictionary into xml
@@ -573,6 +578,7 @@ namespace HP_Display
                                                 row.CreateCell(2).SetCellValue((string)MainResultArray[Parameters.Behavior]);
                                                 row.CreateCell(3).SetCellValue((string)MainResultArray[Parameters.Status]);
                                                 row.CreateCell(4).SetCellValue((string)MainResultArray[Parameters.Remark]);
+                                                row.CreateCell(5).SetCellValue(DateTime.Now.ToLongTimeString());
                                                 for (int i = 0; i < row.Count(); i++)
                                                 {
                                                     sheet.AutoSizeColumn(i);
@@ -1129,7 +1135,7 @@ namespace HP_Display
             try
             {
                 // Dont record the functions as below
-                if ((string)UIdata[Parameters.Behavior] != Behavior.Screen_Check && (string)UIdata[Parameters.Behavior] != Behavior.HDCP_Check && (string)UIdata[Parameters.Behavior] != Behavior.HDCP_CheckPass && (string)UIdata[Parameters.Behavior] != Behavior.Movie_Play_Check && (string)UIdata[Parameters.Behavior] != Behavior.DVD_Restart && (string)UIdata[Parameters.Behavior] != Behavior.Resolution_Check)
+                if ((string)UIdata[Parameters.Behavior] != Behavior.Screen_Check && (string)UIdata[Parameters.Behavior] != Behavior.HDCP_Check && (string)UIdata[Parameters.Behavior] != Behavior.HDCP_CheckPass && (string)UIdata[Parameters.Behavior] != Behavior.Movie_Play_Check && (string)UIdata[Parameters.Behavior] != Behavior.DVD_Restart && (string)UIdata[Parameters.Behavior] != Behavior.Resolution_Check && (string)UIdata[Parameters.Behavior] != Behavior.Opening_Check && (string)UIdata[Parameters.Behavior] != Behavior.Send_Enter)
                 {
                     LogAdd("ConnectNet", $"UIdata: {dll_PublicFuntion.Other.DictionaryToString(UIdata)}", false);
                 }
@@ -1168,7 +1174,7 @@ namespace HP_Display
             {
                 SocketDataCheck = 0;
 
-                if (Behavior_ != Behavior.Screen_Check && Behavior_ != Behavior.HDCP_Check && Behavior_ != Behavior.HDCP_CheckPass && Behavior_ != Behavior.Movie_Play_Check && Behavior_ != Behavior.DVD_Restart)
+                if (Behavior_ != Behavior.Screen_Check && Behavior_ != Behavior.HDCP_Check && Behavior_ != Behavior.HDCP_CheckPass && Behavior_ != Behavior.Movie_Play_Check && Behavior_ != Behavior.DVD_Restart && Behavior_ != Behavior.Opening_Check && Behavior_ != Behavior.Resolution_Check && Behavior_ != Behavior.Send_Enter)
                 {
                     this.Invoke((MethodInvoker)delegate ()
                     {
@@ -1185,6 +1191,7 @@ namespace HP_Display
                         row.CreateCell(2).SetCellValue(Behavior_);
                         row.CreateCell(3).SetCellValue(Status);
                         row.CreateCell(4).SetCellValue(Remark);
+                        row.CreateCell(5).SetCellValue(DateTime.Now.ToLongTimeString());
                         for (int i = 0; i < row.Count(); i++)
                             sheet.AutoSizeColumn(i);
                     });

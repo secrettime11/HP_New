@@ -79,7 +79,6 @@ namespace HP_Display
             this.label7 = new System.Windows.Forms.Label();
             this.txt_nowloop = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -206,7 +205,6 @@ namespace HP_Display
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.button1);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.WebCamCb);
             this.groupBox6.Controls.Add(this.TBoxAllLog);
@@ -523,16 +521,6 @@ namespace HP_Display
             this.label8.TabIndex = 89;
             this.label8.Text = "Now";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(338, 66);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 90;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -627,7 +615,6 @@ namespace HP_Display
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
         public System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.Label Timelb;
-        private System.Windows.Forms.Button button1;
     }
 }
 

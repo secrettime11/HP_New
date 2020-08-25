@@ -271,7 +271,7 @@ namespace HP_Display.OtherCS
             try { SendString = dll_PublicFuntion.Other.DictionaryToXml(SendMessage); } catch { }
             FuncClass.IDS_Check(SendMessage, ref MainResultArray, false);
             Thread.Sleep(200);
-            
+
             if (!File.Exists((string)SendMessage["SavePath"]))
             {
                 MainResultArray[Parameters.Status] = "Fail";
@@ -328,7 +328,7 @@ namespace HP_Display.OtherCS
                     FuncClass.FileDelete(dll_PublicFuntion.Folder.ToolPath + "IDSNowImage.png");
 
                     // OSD display value
-                    OCRresult = FuncClass.RexResolution(OCRresult.Replace("_", " ").Trim()); 
+                    OCRresult = FuncClass.RexResolution(OCRresult.Replace("_", " ").Trim());
 
                     // Receive
                     string receMsg = "";
@@ -409,24 +409,22 @@ namespace HP_Display.OtherCS
                     resultRec.Y = Convert.ToInt32((string)FDic["startY"]);
                     resultRec.Width = Convert.ToInt32((string)FDic["ImgWidth"]);
                     resultRec.Height = Convert.ToInt32((string)FDic["ImgHeight"]);
-
                     grPhoto.DrawImage(FullScreen, 0, 0, resultRec, GraphicsUnit.Pixel);
 
                     grPhoto = Graphics.FromImage(FullScreen);
                     grPhoto.DrawRectangle(new Pen(System.Drawing.Color.Red, 3), resultRec);
-
-                    newRec.Save(string.Format(FuncClass.Check_path($@"IDSData\LedData\{(string)FDic["DataFile"]}") + "{0}.png", $"{timeNow.ToString("HH-mm-ss")}", System.Drawing.Imaging.ImageFormat.Png));
-
+                    newRec.Save(string.Format(FuncClass.Check_path($@"IDSData\LedData\{(string)FDic["DataFile"]}") + "{0}.png", $"{timeNow:HH-mm-ss}", System.Drawing.Imaging.ImageFormat.Png));
                     Thread.Sleep(1000);
-                    dll_GoogleOCR.GoogleOCR googleOCR = new dll_GoogleOCR.GoogleOCR();
                     MainResultArray["DataFile"] = (string)FDic["DataFile"];
 
-                    
                     if (newRec != null)
                     {
                         MainResultArray["IDSImagePortion"] = newRec;
-                        string fileplace = str + $@"\{(string)FDic["DataFile"]}\{timeNow.ToString("HH-mm-ss")}.jpg";
-                        Image<Bgr, Byte> inputImage = new Image<Bgr, byte>(fileplace);
+                        string fileplace = str + $@"\{(string)FDic["DataFile"]}\{timeNow:HH-mm-ss}.png";
+
+                        Image GetBitmap = Image.FromFile(fileplace);
+                        Image<Bgr, byte> inputImage = new Image<Bgr, byte>(fileplace);
+
                         string returnColor = FuncClass.getcolor(inputImage);
                         MainResultArray[Parameters.Remark] = returnColor;
                     }
@@ -440,10 +438,10 @@ namespace HP_Display.OtherCS
                     FuncClass.FileDelete(dll_PublicFuntion.Folder.ToolPath + "IDSNowImage.png");
 
                     MainResultArray[Parameters.Status] = "Fail";
-                    MainResultArray[Parameters.Remark] = "_Image catch fail.";
+                    MainResultArray[Parameters.Remark] = "Image catch fail.";
                 }
             }
-            
+
         }
         /// <summary>
         /// PowerDVD 是否播放中
@@ -472,6 +470,10 @@ namespace HP_Display.OtherCS
                 { Parameters.ServerIP, Parameters.ip},
                 { Parameters.Answer, dll_PublicFuntion.Other.DictionaryToXml(AnswerDic) },
             };
+
+            // Parameter => IconName / PicturePath / Wait
+            Dictionary<string, object> FDic = new Dictionary<string, object>();
+            try { FDic = dll_PublicFuntion.Other.XmlToDictionary(SendMessage[Parameters.Parameter].ToString()); } catch { }
 
             // Loop five times if not success, break if success
             for (int i = 0; i < 5; i++)
@@ -510,10 +512,6 @@ namespace HP_Display.OtherCS
                     break;
                 }
 
-                Dictionary<string, object> FDic = new Dictionary<string, object>();
-
-                // Parameter => IconName / PicturePath
-                try { FDic = dll_PublicFuntion.Other.XmlToDictionary(SendMessage[Parameters.Parameter].ToString()); } catch { }
 
                 // Picture comparison
                 if (File.Exists((string)SendMessageMovie["SavePath"]) && socketResult == true)
@@ -534,7 +532,7 @@ namespace HP_Display.OtherCS
 
                     // Delete NowImage in case of wrong time
                     FuncClass.FileDelete(dll_PublicFuntion.Folder.ToolPath + "IDSNowImage.png");
-                    
+
                     if (resultConfident < Parameters.Confidential)
                     {
                         MainResultArray[Parameters.Status] = "Fail";
@@ -550,7 +548,7 @@ namespace HP_Display.OtherCS
             if ((string)MainResultArray[Parameters.Status] == "Fail")
             {
                 // Socket send data
-                Dictionary<string, object> SendMessageRestart = new Dictionary<string, object> 
+                Dictionary<string, object> SendMessageRestart = new Dictionary<string, object>
                 {
                     { Parameters.Group, GroupName},
                     { Parameters.Behavior, Behavior.DVD_Restart},
@@ -570,7 +568,68 @@ namespace HP_Display.OtherCS
                     MainResultArray[Parameters.Status] = "Fail";
                     MainResultArray[Parameters.Remark] = halfSocketRemark;
                 }
+                WaitTime(ref SendMessage);
             }
+        }
+        public static void Opening_Check(ref Dictionary<string, object> SendMessage, ref Dictionary<string, object> MainResultArray, ref string SendString, string GroupName, ref int ExcelStepCounter, ref int TotalStepCount, ref ISheet sheet, ref int SocketDataCheck, ref string halfSocketRemark)
+        {
+            FuncClass.IdsStatus();
+            SendMessage.Add("SavePath", dll_PublicFuntion.Folder.ToolPath + "IDSNowImage.png");
+            try { SendString = dll_PublicFuntion.Other.DictionaryToXml(SendMessage); } catch { }
+            FuncClass.IDS_Check(SendMessage, ref MainResultArray, false);
+
+            if (!File.Exists((string)SendMessage["SavePath"]))
+            {
+                MainResultArray[Parameters.Status] = "Fail";
+                MainResultArray[Parameters.Remark] = "IDS connect error.";
+            }
+            // Parameter => IconName / PicturePath
+            Dictionary<string, object> FDic = new Dictionary<string, object>();
+            try { FDic = dll_PublicFuntion.Other.XmlToDictionary(SendMessage[Parameters.Parameter].ToString()); } catch { }
+
+            // Picture comparison
+            if (File.Exists((string)SendMessage["SavePath"]))
+            {
+                Image FullScreen = FuncClass.OperateImage((string)SendMessage["SavePath"]);
+
+                Image SmallPic = FuncClass.OperateImage((string)FDic["PicturePath"]);
+
+                dll_opencv.OpenCV openCV = new dll_opencv.OpenCV();
+                openCV.SourceLoadImage(FullScreen);
+                openCV.SourceToGray();
+                openCV.MatchLoadImage(SmallPic);
+                openCV.MatchToGray();
+                dll_opencv.OpenCV.MatchDataList matchDataList = openCV.GetMatchPos(Parameters.Confidential, false);
+
+                double resultConfident = matchDataList.MaxConfidencevalue;
+                Thread.Sleep(50);
+                // Delete NowImage in case of wrong time
+                FuncClass.FileDelete(dll_PublicFuntion.Folder.ToolPath + "IDSNowImage.png");
+                if (resultConfident < Parameters.Confidential)
+                {
+                    MainResultArray[Parameters.Status] = "Pass";
+                    MainResultArray[Parameters.Remark] = "Didn't find the title icon.";
+                }
+                else
+                {
+                    bool socketResult = false;
+                    MainResultArray[Parameters.Status] = "Pass";
+                    do
+                    {
+                        SendMessage[Parameters.Behavior] = Behavior.Send_Enter;
+                        // Send to server
+                        main.ConnectNet(dll_PublicFuntion.Other.DictionaryToXml(SendMessage), TotalStepCount, sheet, GroupName, ExcelStepCounter, ref socketResult, Behavior.Send_Enter);
+                        dll_PublicFuntion.Other.Wait(1.5);
+                    } while (SocketDataCheck == 1);
+
+                    if (socketResult == false)
+                    {
+                        MainResultArray[Parameters.Status] = "Fail";
+                        MainResultArray[Parameters.Remark] = halfSocketRemark;
+                    }
+                }
+            }
+
         }
         /*---- DAQ Function↓----*/
         public static void Monitor_OnOff(ref Dictionary<string, object> MainResultArray, ref string DaqReceive)

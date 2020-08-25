@@ -41,6 +41,7 @@ namespace HP_Display.OtherCS
         public static Graphics gfxScreenshot;
 
         public const string Group = "Group";
+        public const string Time = "Time";
         public const string Step = "Step";
         public const string ServerIP = "ServerIP";
         public const string Answer = "Answer";
@@ -220,6 +221,8 @@ namespace HP_Display.OtherCS
         public const string Movie_Play_Check = "Movie_Play_Check";
         public const string Drag_DVD = "Drag_DVD";
         public const string Audio_Check = "Audio_Check";
+        public const string Opening_Check = "Opening_Check";
+        public const string Send_Enter = "Send_Enter";
         /*Dvd extra*/
         public const string HDCP_CheckPass = "HDCP_CheckPass";
         public const string DVD_Restart = "DVD_Restart";

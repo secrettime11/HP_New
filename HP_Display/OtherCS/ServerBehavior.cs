@@ -641,5 +641,24 @@ namespace HP_Display.OtherCS
                 }
             }
         }
+
+        /// <summary>
+        /// 片頭，送出Enter
+        /// </summary>
+        /// <param name="ResultArray"></param>
+        public static void Send_Enter(ref Dictionary<string, object> ResultArray)
+        {
+            if (FuncClass.UpFrontDVD())
+            {
+                FuncClass.KeyBoard.keyPress(FuncClass.KeyBoard.vKeyReturn);
+                ResultArray[Parameters.Status] = "Pass";
+                ResultArray[Parameters.Remark] = "Enter sent.";
+            }
+            else
+            {
+                ResultArray[Parameters.Status] = "Fail";
+                ResultArray[Parameters.Remark] = "Can't find powerDVD.";
+            }
+        }
     }
 }

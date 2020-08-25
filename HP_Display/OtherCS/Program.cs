@@ -226,6 +226,10 @@ namespace HP_Display
                         {
                             Audio_Check(ref ResultArray,ref ParameterData);
                         }
+                        else if (behavior == Behavior.Send_Enter)
+                        {
+                            Send_Enter(ref ResultArray);
+                        }
                         else
                         {
                         }

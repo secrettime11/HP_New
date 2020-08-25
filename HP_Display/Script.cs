@@ -104,6 +104,7 @@ namespace HP_Display
             {Behavior.Movie_Play_Check,"Movie Play Check" },
             {Behavior.Drag_DVD,"Drag DVD" },
             {Behavior.Audio_Check,"Audio Check" },
+            {Behavior.Opening_Check,"Opening Check" },
         };
         public static Dictionary<string, string> WaitDic = new Dictionary<string, string>
         {
@@ -514,7 +515,7 @@ namespace HP_Display
 
         }
 
-        List<string> functionProtectedList = new List<string> { Behavior.AC_OnOff, Behavior.WaitTime, Behavior.Resolution_Check, Behavior.Screen_Check, Behavior.PM_Special_ColdBoot, Behavior.PM_Special_WarmBoot, Behavior.PM_Special_Hibernation, Behavior.ErrorMessage, Behavior.HDCP_Check, Behavior.Movie_Play_Check, Behavior.Audio_Check, Behavior.LED_Check };
+        List<string> functionProtectedList = new List<string> { Behavior.AC_OnOff, Behavior.WaitTime, Behavior.Resolution_Check, Behavior.Screen_Check, Behavior.PM_Special_ColdBoot, Behavior.PM_Special_WarmBoot, Behavior.PM_Special_Hibernation, Behavior.ErrorMessage, Behavior.HDCP_Check, Behavior.Movie_Play_Check, Behavior.Audio_Check, Behavior.LED_Check,Behavior.Opening_Check };
         private void button2_Click(object sender, EventArgs e)
         {
             string Behavior = "";
@@ -768,7 +769,8 @@ namespace HP_Display
                 C5 = dll_PublicFuntion.Other.DictionaryToXml(
                      new Dictionary<string, object> {
                                 { "IconName",MovieNameText.Text},
-                                { "PicturePath",MoviePathText.Text}
+                                { "PicturePath",MoviePathText.Text},
+                                { "Wait",txt_mpcWait.Text}
                          });
             }
             else if (Behavior_ == Behavior.Drag_DVD)
@@ -793,6 +795,14 @@ namespace HP_Display
                 C5 = dll_PublicFuntion.Other.DictionaryToXml(
                      new Dictionary<string, object> {
                                 { "Audio_Name", audioText.Text},
+                         });
+            }
+            else if (Behavior_ == Behavior.Opening_Check)
+            {
+                C5 = dll_PublicFuntion.Other.DictionaryToXml(
+                     new Dictionary<string, object> {
+                                { "IconName",txt_openIcon.Text},
+                                { "PicturePath",txt_openPath.Text},
                          });
             }
             dataGridView1["C5", rowindex1].Value = C5;
@@ -902,7 +912,7 @@ namespace HP_Display
             }
             else if (Behavior == functionProtectedList[9])
             {
-                if (string.IsNullOrEmpty(MovieNameText.Text) || string.IsNullOrEmpty(MoviePathText.Text))
+                if (string.IsNullOrEmpty(MovieNameText.Text) || string.IsNullOrEmpty(MoviePathText.Text) || string.IsNullOrEmpty(txt_mpcWait.Text))
                 {
                     MessageBox.Show("Parameters error.");
                     return false;
@@ -919,6 +929,14 @@ namespace HP_Display
             else if (Behavior == functionProtectedList[11])
             {
                 if (string.IsNullOrEmpty(startX.Text) || string.IsNullOrEmpty(startY.Text) || string.IsNullOrEmpty(endX.Text) || string.IsNullOrEmpty(endY.Text) || string.IsNullOrEmpty(LEDName.Text))
+                {
+                    MessageBox.Show("Parameters error.");
+                    return false;
+                }
+            }
+            else if (Behavior == functionProtectedList[12])
+            {
+                if (string.IsNullOrEmpty(txt_openPath.Text) || string.IsNullOrEmpty(txt_openIcon.Text))
                 {
                     MessageBox.Show("Parameters error.");
                     return false;
@@ -1132,6 +1150,7 @@ namespace HP_Display
             {
             }
         }
+
         List<int> replaceLine = new List<int>();
         private void resetBtn_Click(object sender, EventArgs e)
         {
@@ -1253,6 +1272,22 @@ namespace HP_Display
                 string Nametxt = txtName[txtName.Length - 1].Replace(".txt", "");
                 LEDName.Text = Nametxt.Trim();
                 sr.Close();
+            }
+        }
+
+        private void btn_open_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+            {
+                openFileDialog1.InitialDirectory = dll_PublicFuntion.Folder.Check_path(@"VisualIdentification\Data\ImageData");
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string path = openFileDialog1.FileName;
+                    txt_openPath.Text = path;
+                    string[] txtName = openFileDialog1.FileName.Split(new[] { "\\" }, StringSplitOptions.None);
+                    string Nametxt = txtName[txtName.Length - 2];
+                    txt_openIcon.Text = Nametxt.Trim();
+                }
             }
         }
     }

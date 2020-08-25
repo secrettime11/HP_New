@@ -90,6 +90,9 @@
             this.label16 = new System.Windows.Forms.Label();
             this.HDCP_PicNameText = new System.Windows.Forms.TextBox();
             this.Movie_Play_Check = new System.Windows.Forms.TabPage();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txt_mpcWait = new System.Windows.Forms.TextBox();
             this.MovieNameText = new System.Windows.Forms.TextBox();
             this.MoviePathText = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
@@ -114,6 +117,13 @@
             this.label24 = new System.Windows.Forms.Label();
             this.HPic1Text = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.LED_Check = new System.Windows.Forms.TabPage();
+            this.LEDName = new System.Windows.Forms.TextBox();
+            this.endX = new System.Windows.Forms.TextBox();
+            this.endY = new System.Windows.Forms.TextBox();
+            this.startY = new System.Windows.Forms.TextBox();
+            this.LedBtn = new System.Windows.Forms.Button();
+            this.startX = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.CBox_Behavior = new System.Windows.Forms.ComboBox();
@@ -144,13 +154,10 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button10 = new System.Windows.Forms.Button();
             this.searchLabel = new System.Windows.Forms.Label();
-            this.LED_Check = new System.Windows.Forms.TabPage();
-            this.LEDName = new System.Windows.Forms.TextBox();
-            this.endX = new System.Windows.Forms.TextBox();
-            this.endY = new System.Windows.Forms.TextBox();
-            this.startY = new System.Windows.Forms.TextBox();
-            this.LedBtn = new System.Windows.Forms.Button();
-            this.startX = new System.Windows.Forms.TextBox();
+            this.Opening_Check = new System.Windows.Forms.TabPage();
+            this.txt_openIcon = new System.Windows.Forms.TextBox();
+            this.txt_openPath = new System.Windows.Forms.TextBox();
+            this.btn_open = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.AC_OnOff.SuspendLayout();
@@ -172,10 +179,11 @@
             this.PM_Special_WarmBoot.SuspendLayout();
             this.PM_Special_ColdBoot.SuspendLayout();
             this.PM_Special_Hibernation.SuspendLayout();
+            this.LED_Check.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.LED_Check.SuspendLayout();
+            this.Opening_Check.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -315,6 +323,7 @@
             this.tabControl1.Controls.Add(this.PM_Special_ColdBoot);
             this.tabControl1.Controls.Add(this.PM_Special_Hibernation);
             this.tabControl1.Controls.Add(this.LED_Check);
+            this.tabControl1.Controls.Add(this.Opening_Check);
             this.tabControl1.Location = new System.Drawing.Point(486, 47);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -839,6 +848,9 @@
             // 
             // Movie_Play_Check
             // 
+            this.Movie_Play_Check.Controls.Add(this.label27);
+            this.Movie_Play_Check.Controls.Add(this.label26);
+            this.Movie_Play_Check.Controls.Add(this.txt_mpcWait);
             this.Movie_Play_Check.Controls.Add(this.MovieNameText);
             this.Movie_Play_Check.Controls.Add(this.MoviePathText);
             this.Movie_Play_Check.Controls.Add(this.button8);
@@ -849,30 +861,59 @@
             this.Movie_Play_Check.Text = "PowerDVD";
             this.Movie_Play_Check.UseVisualStyleBackColor = true;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label27.Location = new System.Drawing.Point(148, 72);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(58, 16);
+            this.label27.TabIndex = 55;
+            this.label27.Text = "seconds";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label26.Location = new System.Drawing.Point(11, 72);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(37, 16);
+            this.label26.TabIndex = 46;
+            this.label26.Text = "Wait";
+            // 
+            // txt_mpcWait
+            // 
+            this.txt_mpcWait.Font = new System.Drawing.Font("新細明體", 12F);
+            this.txt_mpcWait.Location = new System.Drawing.Point(54, 65);
+            this.txt_mpcWait.Name = "txt_mpcWait";
+            this.txt_mpcWait.Size = new System.Drawing.Size(87, 27);
+            this.txt_mpcWait.TabIndex = 54;
+            this.txt_mpcWait.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // MovieNameText
             // 
             this.MovieNameText.Font = new System.Drawing.Font("新細明體", 12F);
-            this.MovieNameText.Location = new System.Drawing.Point(45, 67);
+            this.MovieNameText.Location = new System.Drawing.Point(281, 24);
             this.MovieNameText.Name = "MovieNameText";
             this.MovieNameText.ReadOnly = true;
-            this.MovieNameText.Size = new System.Drawing.Size(209, 27);
+            this.MovieNameText.Size = new System.Drawing.Size(87, 27);
             this.MovieNameText.TabIndex = 53;
             // 
             // MoviePathText
             // 
             this.MoviePathText.Font = new System.Drawing.Font("新細明體", 12F);
-            this.MoviePathText.Location = new System.Drawing.Point(45, 24);
+            this.MoviePathText.Location = new System.Drawing.Point(14, 24);
             this.MoviePathText.Name = "MoviePathText";
             this.MoviePathText.ReadOnly = true;
-            this.MoviePathText.Size = new System.Drawing.Size(302, 27);
+            this.MoviePathText.Size = new System.Drawing.Size(260, 27);
             this.MoviePathText.TabIndex = 52;
             // 
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("新細明體", 9F);
-            this.button8.Location = new System.Drawing.Point(281, 64);
+            this.button8.Location = new System.Drawing.Point(281, 65);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(66, 32);
+            this.button8.Size = new System.Drawing.Size(87, 32);
             this.button8.TabIndex = 51;
             this.button8.Text = "Select";
             this.button8.UseVisualStyleBackColor = true;
@@ -1084,6 +1125,77 @@
             this.label25.Size = new System.Drawing.Size(47, 16);
             this.label25.TabIndex = 59;
             this.label25.Text = "Step 1";
+            // 
+            // LED_Check
+            // 
+            this.LED_Check.Controls.Add(this.LEDName);
+            this.LED_Check.Controls.Add(this.endX);
+            this.LED_Check.Controls.Add(this.endY);
+            this.LED_Check.Controls.Add(this.startY);
+            this.LED_Check.Controls.Add(this.LedBtn);
+            this.LED_Check.Controls.Add(this.startX);
+            this.LED_Check.Location = new System.Drawing.Point(4, 22);
+            this.LED_Check.Name = "LED_Check";
+            this.LED_Check.Size = new System.Drawing.Size(392, 121);
+            this.LED_Check.TabIndex = 13;
+            this.LED_Check.Text = "LED";
+            this.LED_Check.UseVisualStyleBackColor = true;
+            // 
+            // LEDName
+            // 
+            this.LEDName.Font = new System.Drawing.Font("新細明體", 12F);
+            this.LEDName.Location = new System.Drawing.Point(32, 68);
+            this.LEDName.Name = "LEDName";
+            this.LEDName.ReadOnly = true;
+            this.LEDName.Size = new System.Drawing.Size(239, 27);
+            this.LEDName.TabIndex = 53;
+            // 
+            // endX
+            // 
+            this.endX.Font = new System.Drawing.Font("新細明體", 12F);
+            this.endX.Location = new System.Drawing.Point(205, 26);
+            this.endX.Name = "endX";
+            this.endX.ReadOnly = true;
+            this.endX.Size = new System.Drawing.Size(66, 27);
+            this.endX.TabIndex = 52;
+            // 
+            // endY
+            // 
+            this.endY.Font = new System.Drawing.Font("新細明體", 12F);
+            this.endY.Location = new System.Drawing.Point(295, 26);
+            this.endY.Name = "endY";
+            this.endY.ReadOnly = true;
+            this.endY.Size = new System.Drawing.Size(66, 27);
+            this.endY.TabIndex = 51;
+            // 
+            // startY
+            // 
+            this.startY.Font = new System.Drawing.Font("新細明體", 12F);
+            this.startY.Location = new System.Drawing.Point(119, 27);
+            this.startY.Name = "startY";
+            this.startY.ReadOnly = true;
+            this.startY.Size = new System.Drawing.Size(66, 27);
+            this.startY.TabIndex = 50;
+            // 
+            // LedBtn
+            // 
+            this.LedBtn.Font = new System.Drawing.Font("新細明體", 9F);
+            this.LedBtn.Location = new System.Drawing.Point(295, 63);
+            this.LedBtn.Name = "LedBtn";
+            this.LedBtn.Size = new System.Drawing.Size(66, 32);
+            this.LedBtn.TabIndex = 49;
+            this.LedBtn.Text = "LED Load";
+            this.LedBtn.UseVisualStyleBackColor = true;
+            this.LedBtn.Click += new System.EventHandler(this.LedBtn_Click);
+            // 
+            // startX
+            // 
+            this.startX.Font = new System.Drawing.Font("新細明體", 12F);
+            this.startX.Location = new System.Drawing.Point(32, 28);
+            this.startX.Name = "startX";
+            this.startX.ReadOnly = true;
+            this.startX.Size = new System.Drawing.Size(66, 27);
+            this.startX.TabIndex = 48;
             // 
             // button1
             // 
@@ -1364,76 +1476,46 @@
             this.searchLabel.TabIndex = 46;
             this.searchLabel.Text = "Search result";
             // 
-            // LED_Check
+            // Opening_Check
             // 
-            this.LED_Check.Controls.Add(this.LEDName);
-            this.LED_Check.Controls.Add(this.endX);
-            this.LED_Check.Controls.Add(this.endY);
-            this.LED_Check.Controls.Add(this.startY);
-            this.LED_Check.Controls.Add(this.LedBtn);
-            this.LED_Check.Controls.Add(this.startX);
-            this.LED_Check.Location = new System.Drawing.Point(4, 22);
-            this.LED_Check.Name = "LED_Check";
-            this.LED_Check.Size = new System.Drawing.Size(392, 121);
-            this.LED_Check.TabIndex = 13;
-            this.LED_Check.Text = "LED";
-            this.LED_Check.UseVisualStyleBackColor = true;
+            this.Opening_Check.Controls.Add(this.txt_openIcon);
+            this.Opening_Check.Controls.Add(this.txt_openPath);
+            this.Opening_Check.Controls.Add(this.btn_open);
+            this.Opening_Check.Location = new System.Drawing.Point(4, 22);
+            this.Opening_Check.Name = "Opening_Check";
+            this.Opening_Check.Size = new System.Drawing.Size(392, 121);
+            this.Opening_Check.TabIndex = 14;
+            this.Opening_Check.Text = "Opening Check";
+            this.Opening_Check.UseVisualStyleBackColor = true;
             // 
-            // LEDName
+            // txt_openIcon
             // 
-            this.LEDName.Font = new System.Drawing.Font("新細明體", 12F);
-            this.LEDName.Location = new System.Drawing.Point(32, 68);
-            this.LEDName.Name = "LEDName";
-            this.LEDName.ReadOnly = true;
-            this.LEDName.Size = new System.Drawing.Size(239, 27);
-            this.LEDName.TabIndex = 53;
+            this.txt_openIcon.Font = new System.Drawing.Font("新細明體", 12F);
+            this.txt_openIcon.Location = new System.Drawing.Point(45, 67);
+            this.txt_openIcon.Name = "txt_openIcon";
+            this.txt_openIcon.ReadOnly = true;
+            this.txt_openIcon.Size = new System.Drawing.Size(209, 27);
+            this.txt_openIcon.TabIndex = 53;
             // 
-            // endX
+            // txt_openPath
             // 
-            this.endX.Font = new System.Drawing.Font("新細明體", 12F);
-            this.endX.Location = new System.Drawing.Point(205, 26);
-            this.endX.Name = "endX";
-            this.endX.ReadOnly = true;
-            this.endX.Size = new System.Drawing.Size(66, 27);
-            this.endX.TabIndex = 52;
+            this.txt_openPath.Font = new System.Drawing.Font("新細明體", 12F);
+            this.txt_openPath.Location = new System.Drawing.Point(45, 24);
+            this.txt_openPath.Name = "txt_openPath";
+            this.txt_openPath.ReadOnly = true;
+            this.txt_openPath.Size = new System.Drawing.Size(302, 27);
+            this.txt_openPath.TabIndex = 52;
             // 
-            // endY
+            // btn_open
             // 
-            this.endY.Font = new System.Drawing.Font("新細明體", 12F);
-            this.endY.Location = new System.Drawing.Point(295, 26);
-            this.endY.Name = "endY";
-            this.endY.ReadOnly = true;
-            this.endY.Size = new System.Drawing.Size(66, 27);
-            this.endY.TabIndex = 51;
-            // 
-            // startY
-            // 
-            this.startY.Font = new System.Drawing.Font("新細明體", 12F);
-            this.startY.Location = new System.Drawing.Point(119, 27);
-            this.startY.Name = "startY";
-            this.startY.ReadOnly = true;
-            this.startY.Size = new System.Drawing.Size(66, 27);
-            this.startY.TabIndex = 50;
-            // 
-            // LedBtn
-            // 
-            this.LedBtn.Font = new System.Drawing.Font("新細明體", 9F);
-            this.LedBtn.Location = new System.Drawing.Point(295, 63);
-            this.LedBtn.Name = "LedBtn";
-            this.LedBtn.Size = new System.Drawing.Size(66, 32);
-            this.LedBtn.TabIndex = 49;
-            this.LedBtn.Text = "LED Load";
-            this.LedBtn.UseVisualStyleBackColor = true;
-            this.LedBtn.Click += new System.EventHandler(this.LedBtn_Click);
-            // 
-            // startX
-            // 
-            this.startX.Font = new System.Drawing.Font("新細明體", 12F);
-            this.startX.Location = new System.Drawing.Point(32, 28);
-            this.startX.Name = "startX";
-            this.startX.ReadOnly = true;
-            this.startX.Size = new System.Drawing.Size(66, 27);
-            this.startX.TabIndex = 48;
+            this.btn_open.Font = new System.Drawing.Font("新細明體", 9F);
+            this.btn_open.Location = new System.Drawing.Point(281, 64);
+            this.btn_open.Name = "btn_open";
+            this.btn_open.Size = new System.Drawing.Size(66, 32);
+            this.btn_open.TabIndex = 51;
+            this.btn_open.Text = "Select";
+            this.btn_open.UseVisualStyleBackColor = true;
+            this.btn_open.Click += new System.EventHandler(this.btn_open_Click);
             // 
             // Script
             // 
@@ -1491,12 +1573,14 @@
             this.PM_Special_ColdBoot.PerformLayout();
             this.PM_Special_Hibernation.ResumeLayout(false);
             this.PM_Special_Hibernation.PerformLayout();
+            this.LED_Check.ResumeLayout(false);
+            this.LED_Check.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            this.LED_Check.ResumeLayout(false);
-            this.LED_Check.PerformLayout();
+            this.Opening_Check.ResumeLayout(false);
+            this.Opening_Check.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1624,5 +1708,12 @@
         private System.Windows.Forms.TextBox startY;
         private System.Windows.Forms.Button LedBtn;
         private System.Windows.Forms.TextBox startX;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txt_mpcWait;
+        private System.Windows.Forms.TabPage Opening_Check;
+        private System.Windows.Forms.TextBox txt_openIcon;
+        private System.Windows.Forms.TextBox txt_openPath;
+        private System.Windows.Forms.Button btn_open;
     }
 }
