@@ -86,6 +86,8 @@ namespace HP_Display
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            Console.WriteLine("x:" + System.Windows.Forms.Cursor.Position.X);
+            Console.WriteLine("y:" + System.Windows.Forms.Cursor.Position.Y);
             //this.skinEngine1.SkinFile = "MacOs.ssk";
             txt_loop.ImeMode = ImeMode.Off;
             Stopbtn.Enabled = false;
@@ -1056,9 +1058,6 @@ namespace HP_Display
             else
                 AddTaskToScheduler($@"{Application.StartupPath}\HP_Display.exe", "", "HP_Display");
         }
-        /// <summary>
-        /// Trigger when form closing
-        /// </summary>
         /// <param name="e"></param>
         /// /// <summary>
         /// Socket connect
@@ -1211,6 +1210,7 @@ namespace HP_Display
                     NodeStatus = true;
                 }
             }
+
             else
                 SocketDataCheck = 1;
         }
@@ -1249,12 +1249,5 @@ namespace HP_Display
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(WindowsDisplayAPI.Display.GetDisplays().ToList()[0].CurrentSetting.Frequency);
-            Dictionary<string, object> mm = new Dictionary<string, object> { { "Remark", "" } };
-            ExePosition(ref mm);
-            Console.WriteLine("done");
-        }
     }
 }

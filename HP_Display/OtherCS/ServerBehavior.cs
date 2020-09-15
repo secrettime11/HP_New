@@ -650,6 +650,13 @@ namespace HP_Display.OtherCS
         {
             if (FuncClass.UpFrontDVD())
             {
+                int CursorX = Screen.PrimaryScreen.Bounds.Width / 2;
+                int CursorY = (Screen.PrimaryScreen.Bounds.Height / 2) - 355;
+                Parameters.Windows.SetCursorPos(CursorX, CursorY);
+                Thread.Sleep(300);
+                Parameters.Windows.mouse_event(Parameters.Windows.MOUSEEVENTF_LEFTDOWN, CursorX, CursorY, 0, 0);
+                Parameters.Windows.mouse_event(Parameters.Windows.MOUSEEVENTF_LEFTUP, CursorX, CursorY, 0, 0);
+                Thread.Sleep(500);
                 FuncClass.KeyBoard.keyPress(FuncClass.KeyBoard.vKeyReturn);
                 ResultArray[Parameters.Status] = "Pass";
                 ResultArray[Parameters.Remark] = "Enter sent.";

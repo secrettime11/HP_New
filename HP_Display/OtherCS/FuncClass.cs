@@ -428,7 +428,6 @@ namespace HP_Display
                 int bytes = 0;
 
                 socketIDS.Connect((string)UIdata["ServerIP"], 8787);
-
                 // Sokcet send data
                 Dictionary<string, object> dic = new Dictionary<string, object>
                 {
@@ -578,7 +577,7 @@ namespace HP_Display
             }
             else
             {
-                Console.WriteLine("Vision tool is ready to go");
+                Console.WriteLine("Vision tool is ready.");
             }
         }
         /// <summary>
