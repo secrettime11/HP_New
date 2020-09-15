@@ -519,26 +519,32 @@ namespace HP_Display.OtherCS
         /// <param name="ResultArray"></param>
         public static void DVD_Restart(ref Dictionary<string, object> ResultArray) 
         {
-            Process[] processes = Process.GetProcessesByName("powerDVD");
-            if (processes.Length > 0)
-            {
-                foreach (Process p in processes)
-                {
-                    p.Kill();
-                    //p.WaitForExit();
-                }
-                Thread.Sleep(2000);
-                FuncClass.DVD_On(ref ResultArray);
-                if ((string)ResultArray[Parameters.Status] != "Fail")
-                {
-                    ResultArray[Parameters.Status] = "Fail";
-                    ResultArray[Parameters.Remark] = "Restart PowerDVD already.";
-                }
-            }
-            else
+            //Process[] processes = Process.GetProcessesByName("powerDVD");
+            //if (processes.Length > 0)
+            //{
+            //    foreach (Process p in processes)
+            //    {
+            //        p.Kill();
+            //        //p.WaitForExit();
+            //    }
+            //    Thread.Sleep(2000);
+            //    FuncClass.DVD_On(ref ResultArray);
+            //    if ((string)ResultArray[Parameters.Status] != "Fail")
+            //    {
+            //        ResultArray[Parameters.Status] = "Fail";
+            //        ResultArray[Parameters.Remark] = "Already restart PowerDVD.";
+            //    }
+            //}
+            //else
+            //{
+            //    ResultArray[Parameters.Status] = "Fail";
+            //    ResultArray[Parameters.Remark] = "Can't find powerDVD.";
+            //}
+            FuncClass.DVD_On(ref ResultArray);
+            if ((string)ResultArray[Parameters.Status] != "Fail")
             {
                 ResultArray[Parameters.Status] = "Fail";
-                ResultArray[Parameters.Remark] = "Can't find powerDVD.";
+                ResultArray[Parameters.Remark] = "Already start PowerDVD.";
             }
         }
 
@@ -658,6 +664,8 @@ namespace HP_Display.OtherCS
                 Parameters.Windows.mouse_event(Parameters.Windows.MOUSEEVENTF_LEFTUP, CursorX, CursorY, 0, 0);
                 Thread.Sleep(500);
                 FuncClass.KeyBoard.keyPress(FuncClass.KeyBoard.vKeyReturn);
+                // 等待三分鐘
+                Thread.Sleep(180 * 1000);
                 ResultArray[Parameters.Status] = "Pass";
                 ResultArray[Parameters.Remark] = "Enter sent.";
             }

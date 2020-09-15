@@ -869,7 +869,7 @@ namespace HP_Display
             public const byte vKeyDivide = 0x6F;     // DIVISION SIGN(/) 鍵
 
 
-            //F1到F12按鍵
+            // F1到F12按鍵
             public const byte vKeyF1 = 0x70;   //F1 鍵
             public const byte vKeyF2 = 0x71;   //F2 鍵
             public const byte vKeyF3 = 0x72;   //F3 鍵

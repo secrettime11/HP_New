@@ -1094,7 +1094,7 @@ namespace HP_Display
             }
 
             Dictionary<string, object> UIdata = new Dictionary<string, object>();
-            // Socket send/receive after connectstatus equals true
+            // Socket send/receive after connect status equals true
             if (ConnectStatus)
             {
                 Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

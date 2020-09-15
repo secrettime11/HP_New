@@ -475,7 +475,7 @@ namespace HP_Display.OtherCS
             Dictionary<string, object> FDic = new Dictionary<string, object>();
             try { FDic = dll_PublicFuntion.Other.XmlToDictionary(SendMessage[Parameters.Parameter].ToString()); } catch { }
 
-            // Loop five times if not success, break if success
+            // Loop five times, break until success
             for (int i = 0; i < 5; i++)
             {
                 MainResultArray[Parameters.Remark] = "";
@@ -514,7 +514,7 @@ namespace HP_Display.OtherCS
 
 
                 // Picture comparison
-                if (File.Exists((string)SendMessageMovie["SavePath"]) && socketResult == true)
+                if (File.Exists((string)SendMessageMovie["SavePath"]) && socketResult)
                 {
                     Image FullScreen = FuncClass.OperateImage((string)SendMessageMovie["SavePath"]);
 
