@@ -135,7 +135,8 @@ namespace HP_Display.OtherCS
         public static void PnP_Check(ref Dictionary<string, object> ResultArray, ref Dictionary<string, object> AnswerDic)
         {
             ResultArray[Parameters.Status] = "Pass";
-
+            FuncClass.ExtendMode();
+            Thread.Sleep(100);
             if (!ResultArray.ContainsKey("ID"))
                 ResultArray.Add("ID", new List<string> { });
             if (!ResultArray.ContainsKey("Type"))
@@ -231,7 +232,8 @@ namespace HP_Display.OtherCS
         public static void Display_Check(ref Dictionary<string, object> ResultArray, ref Dictionary<string, object> AnswerDic)
         {
             ResultArray[Parameters.Status] = "Pass";
-
+            FuncClass.ExtendMode();
+            Thread.Sleep(100);
             if (!ResultArray.ContainsKey("ID"))
                 ResultArray.Add("ID", new List<string> { });
             if (!ResultArray.ContainsKey("Screen"))
@@ -275,14 +277,14 @@ namespace HP_Display.OtherCS
                 string dutSc = "";
                 for (int i = 0; i < idl.Count(); i++)
                 {
-                    // PRIMARY SCREEN ID COMPARISON
+                    // Primary screen id comparison
                     if (idl[i] == (string)AnswerDic["DUTID"])
                     {
                         dutID = (string)AnswerDic["DUTID"];
                         dutSc = screenl[i];
                     }
                 }
-                // MAKE SURE IS MULTIPLE SCREENS
+                // Make sure is extend mode
                 if (Screen.AllScreens.Length > 1)
                 {
                     if (!string.IsNullOrEmpty(dutID))

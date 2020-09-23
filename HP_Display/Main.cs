@@ -86,8 +86,6 @@ namespace HP_Display
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("x:" + System.Windows.Forms.Cursor.Position.X);
-            Console.WriteLine("y:" + System.Windows.Forms.Cursor.Position.Y);
             //this.skinEngine1.SkinFile = "MacOs.ssk";
             txt_loop.ImeMode = ImeMode.Off;
             Stopbtn.Enabled = false;
@@ -125,7 +123,7 @@ namespace HP_Display
                 }
                 catch (Exception ee)
                 {
-                    Console.WriteLine("AA:" + ee.Message);
+                    Console.WriteLine("FormLoad:" + ee.Message);
                 }
             }
             // Read config file
@@ -140,7 +138,7 @@ namespace HP_Display
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Parameters.path = openFileDialog1.FileName;
-                LogAdd("ScriptLoad", $"path: {Parameters.path}", false);//Console.WriteLine(path);
+                LogAdd("ScriptLoad", $"path: {Parameters.path}", false);
                 ScriptInit(false);
             }
         }

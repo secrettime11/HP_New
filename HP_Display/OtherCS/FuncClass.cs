@@ -27,6 +27,18 @@ namespace HP_Display
     {
         const int MOUSEEVENTF_LEFTDOWN = 0x0002;
         const int MOUSEEVENTF_LEFTUP = 0x0004;
+        private const uint SDC_APPLY = 0x00000080;
+
+        private const uint SDC_TOPOLOGY_INTERNAL = 0x00000001;
+
+        private const uint SDC_TOPOLOGY_CLONE = 0x00000002;
+
+        private const uint SDC_TOPOLOGY_EXTERNAL = 0x00000008;
+
+        private const uint SDC_TOPOLOGY_EXTEND = 0x00000004;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern long SetDisplayConfig(uint numPathArrayElements, IntPtr pathArray, uint numModeArrayElements, IntPtr modeArray, uint flags);
 
         public static string ToolPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\";
         /// <summary>
@@ -487,7 +499,7 @@ namespace HP_Display
                     else
                         UpFrontDVD();
 
-                    // WAIT FOR POWERDVD OPEN
+                    // Wait for powerDVD open
                     Thread.Sleep(5000);
 
                     ExePosition(ref ResultArray);
@@ -753,6 +765,46 @@ namespace HP_Display
                     break;
                 }
             } while (rECT.Left != (Screen.PrimaryScreen.WorkingArea.Width / 2) - 640 || rECT.Top != (Screen.PrimaryScreen.WorkingArea.Height / 2) - 360);
+        }
+        /// <summary>
+        /// 設定延伸模式
+        /// </summary>
+        public static void ExtendMode() 
+        {
+            if (Screen.AllScreens.Length < 2)
+            {
+                SetScreenMode(2);
+            }
+        }
+        /// <summary>
+        /// 設置屏幕的顯示模式
+        /// </summary>
+        /// <param name="type">模式(0 - 主屏  1 - 同步  2 - 延伸  3 - 第二屏幕</param>
+        /// <returns></returns>
+        private static void SetScreenMode(int type)
+        {
+            uint smode;
+
+            switch (type)
+            {
+                case 0:
+                    smode = SDC_APPLY | SDC_TOPOLOGY_INTERNAL;
+                    break;
+                case 1:
+                    smode = SDC_APPLY | SDC_TOPOLOGY_CLONE;
+                    break;
+                case 2:
+                    smode = SDC_APPLY | SDC_TOPOLOGY_EXTEND;
+                    break;
+                case 3:
+                    smode = SDC_APPLY | SDC_TOPOLOGY_EXTERNAL;
+                    break;
+                default:
+                    smode = SDC_APPLY | SDC_TOPOLOGY_INTERNAL;
+                    break;
+            }
+
+            SetDisplayConfig(0, IntPtr.Zero, 0, IntPtr.Zero, smode);
         }
         #region ShowWindow
         [DllImport("User32")]
